@@ -1,7 +1,7 @@
 """
 FastAPI — University Bandwidth Peak Hour Prediction
-=====================================================
-Run: uvicorn api.main:app --reload
+Run: uvicorn api.main:app --reload --port 8000
+UI:   http://127.0.0.1:8000/ui
 Docs: http://127.0.0.1:8000/docs
 """
 
@@ -10,10 +10,12 @@ import json
 import joblib
 import numpy as np
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from typing import Optional
 
-# ── Load artifacts ────────────────────────────────────────────────────────────
+
 BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_DIR  = os.path.join(BASE_DIR, 'models')
 
@@ -24,19 +26,28 @@ try:
         metadata = json.load(f)
     with open(os.path.join(MODEL_DIR, 'feature_names.json')) as f:
         feature_names = json.load(f)
-    print(f"✅ Model loaded: {metadata['model_name']} (F1={metadata['f1_score']})")
+    print(f" Model loaded: {metadata['model_name']} (F1={metadata['f1_score']})")
 except Exception as e:
-    print(f"❌ Model load error: {e}")
+    print(f" Model load error: {e}")
     model = scaler = metadata = feature_names = None
 
-# ── FastAPI app ───────────────────────────────────────────────────────────────
+
 app = FastAPI(
-    title       = "🎓 University Bandwidth Peak Hour Predictor",
+    title       = " University Bandwidth Peak Hour Predictor",
     description = "Predicts whether current network traffic is in Peak Hour or Non-Peak Hour",
     version     = "1.0.0"
 )
 
-# ── Request schema ────────────────────────────────────────────────────────────
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+HTML_FILE = os.path.join(BASE_DIR, 'api', 'index.html')
+
+
 class NetworkFlowInput(BaseModel):
     Flow_Duration              : float = Field(..., example=100000.0,  description="Flow duration in microseconds")
     Total_Fwd_Packets          : float = Field(..., example=15.0,      description="Total forward packets")
@@ -55,7 +66,7 @@ class NetworkFlowInput(BaseModel):
     Idle_Mean                  : float = Field(..., example=0.0,       description="Idle mean")
     Destination_Port           : float = Field(..., example=443.0,     description="Destination port number")
 
-# ── Response schema ───────────────────────────────────────────────────────────
+
 class PredictionResponse(BaseModel):
     prediction        : int
     label             : str
@@ -64,7 +75,7 @@ class PredictionResponse(BaseModel):
     prob_peak         : float
     model_used        : str
 
-# ── Helper: map input to feature array ───────────────────────────────────────
+
 FIELD_MAP = {
     'Flow Duration'                  : 'Flow_Duration',
     'Total Fwd Packets'              : 'Total_Fwd_Packets',
@@ -100,13 +111,18 @@ def build_feature_array(data: NetworkFlowInput, feat_names: list) -> np.ndarray:
             row.append(float(input_dict.get(api_key, 0.0)) if api_key else 0.0)
     return np.array(row).reshape(1, -1)
 
-# ── Routes ────────────────────────────────────────────────────────────────────
+
+@app.get("/ui", include_in_schema=False)
+def serve_ui():
+    return FileResponse(HTML_FILE)
+
 @app.get("/", tags=["Health"])
 def root():
     return {
-        "status"     : "✅ API is running",
+        "status"     : "API is running",
         "model"      : metadata.get('model_name') if metadata else "Not loaded",
         "f1_score"   : metadata.get('f1_score') if metadata else None,
+        "ui"         : "/ui",
         "docs"       : "/docs"
     }
 
