@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BandwidthIQ — University Network Peak Hour Predictor</title>
+  <title>BandwidthIQ</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -208,9 +208,11 @@
 
     @media (max-width: 1100px) {
       .form-grid { grid-template-columns: repeat(3, 1fr); }
+      .choice-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 700px) {
       .form-grid { grid-template-columns: 1fr 1fr; }
+      .choice-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .form-grid { grid-template-columns: 1fr; }
@@ -294,6 +296,186 @@
     .preset-btn.active {
       background: var(--navy); color: var(--gold-light);
       border-color: var(--navy);
+    }
+
+    .guided-intro {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      background: #F7FAFD;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+
+    .step-block {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: var(--white);
+    }
+
+    .step-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .choice-btn {
+      border: 1.5px solid #D7E1EC;
+      border-radius: 8px;
+      background: #FAFCFE;
+      color: var(--text-dark);
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .choice-btn small {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-soft);
+    }
+
+    .choice-btn:hover {
+      border-color: var(--gold);
+      background: #FFFDF8;
+    }
+
+    .choice-btn.active {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: var(--gold-light);
+      box-shadow: 0 6px 16px rgba(11,31,58,0.20);
+    }
+
+    .choice-btn.active small {
+      color: rgba(255,255,255,0.82);
+    }
+
+    .guided-summary {
+      margin-top: 8px;
+      font-size: 12.5px;
+      color: var(--text-mid);
+      line-height: 1.6;
+      background: #F9FBFC;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+
+    .advanced-toggle-wrap {
+      margin-top: 14px;
+      padding: 12px;
+      background: #FBF6EA;
+      border: 1px solid rgba(201,153,58,0.25);
+      border-radius: 8px;
+    }
+
+    .advanced-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-mid);
+      cursor: pointer;
+    }
+
+    .advanced-toggle input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--navy);
+    }
+
+    .advanced-helper {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 5px;
+      padding-left: 26px;
+    }
+
+    .advanced-panel {
+      margin-top: 12px;
+      display: none;
+    }
+
+    .advanced-panel.open {
+      display: block;
+      animation: fade-up 0.3s ease both;
+    }
+
+    .advanced-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .advanced-demos {
+      margin-bottom: 12px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #FAFCFD;
+    }
+
+    .advanced-demos-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .advanced-demos-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .demo-btn {
+      border: 1px solid #D6E1EA;
+      border-radius: 16px;
+      background: #FFFFFF;
+      color: var(--text-mid);
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .demo-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: #FFFDF8;
     }
 
     /* submit button */
@@ -806,137 +988,87 @@
       <div class="card-header">
         <div class="card-icon">📡</div>
         <div>
-          <div class="card-title">Network Flow Parameters</div>
-          <div class="card-subtitle">Enter traffic metrics to predict peak/non-peak classification</div>
+          <div class="card-title">Guided Prediction Form</div>
+          <div class="card-subtitle">Simple 3-step input for non-technical users</div>
         </div>
       </div>
       <div class="card-body">
-
-        <!-- Quick presets -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-soft);margin-bottom:8px;">
-            Quick Demo Scenarios
-          </div>
-          <div class="presets">
-            <button class="preset-btn" onclick="loadPreset('peak_web')">🔴 Peak — Web Browsing</button>
-            <button class="preset-btn" onclick="loadPreset('peak_stream')">🔴 Peak — Video Stream</button>
-            <button class="preset-btn" onclick="loadPreset('non_peak')">🟢 Non-Peak — Idle Night</button>
-            <button class="preset-btn" onclick="loadPreset('non_peak_ssh')">🟢 Non-Peak — Admin SSH</button>
-          </div>
+        <div class="guided-intro">
+          Use the guided steps below. The system will auto-fill technical metrics for prediction.
+          If you are an IT user, you can optionally open Advanced Settings and adjust raw values.
         </div>
 
         <form id="predictForm">
-          <div class="form-grid">
+          <div class="step-block">
+            <div class="step-label">Step 1</div>
+            <div class="step-title">What are you doing?</div>
+            <div class="choice-grid" id="activityChoices">
+              <button type="button" class="choice-btn activity-btn active" data-activity="streaming">Streaming<small>Video classes or media streaming</small></button>
+              <button type="button" class="choice-btn activity-btn" data-activity="browsing">Browsing<small>General web usage and documents</small></button>
+              <button type="button" class="choice-btn activity-btn" data-activity="video_call">Video Call<small>Meetings, interviews, online discussions</small></button>
+              <button type="button" class="choice-btn activity-btn" data-activity="admin_work">Admin Work<small>SSH, monitoring, internal tools</small></button>
+            </div>
+          </div>
 
-            <div class="form-section-label">📦 Traffic Volume</div>
+          <div class="step-block">
+            <div class="step-label">Step 2</div>
+            <div class="step-title">How busy is network now?</div>
+            <div class="choice-grid" id="busyChoices">
+              <button type="button" class="choice-btn busy-btn" data-busy="low">Low<small>Mostly idle, few active users</small></button>
+              <button type="button" class="choice-btn busy-btn active" data-busy="medium">Medium<small>Normal class-day usage</small></button>
+              <button type="button" class="choice-btn busy-btn" data-busy="high">High<small>Heavy traffic or peak campus hours</small></button>
+            </div>
+            <div class="guided-summary" id="guidedSummary">
+              Based on your selection, technical flow values are generated automatically.
+            </div>
+          </div>
 
-            <div class="field">
-              <label>Flow Duration <span class="field-hint">(μs)</span></label>
-              <div class="field-hint">How long the network session lasted</div>
-              <input type="number" id="Flow_Duration" placeholder="e.g. 100000" step="any" required/>
+          <div class="step-block">
+            <div class="step-label">Step 3 (Optional)</div>
+            <div class="step-title">Advanced Settings</div>
+            <div class="advanced-toggle-wrap">
+              <label class="advanced-toggle">
+                <input type="checkbox" id="advancedToggle" />
+                Show raw technical fields (for IT users)
+              </label>
+              <div class="advanced-helper">Leave this off for a simple, non-technical workflow.</div>
             </div>
 
-            <div class="field">
-              <label>Total Fwd Packets</label>
-              <div class="field-hint">Packets sent from client to server</div>
-              <input type="number" id="Total_Fwd_Packets" placeholder="e.g. 15" step="any" required/>
+            <div class="advanced-panel" id="advancedPanel">
+              <div class="advanced-title">Raw Network Flow Inputs</div>
+              <div class="advanced-demos">
+                <div class="advanced-demos-label">Demo datasets (one-click fill)</div>
+                <div class="advanced-demos-grid">
+                  <button type="button" class="demo-btn" data-demo="peak_web">Peak - Web Browsing</button>
+                  <button type="button" class="demo-btn" data-demo="peak_stream">Peak - Video Stream</button>
+                  <button type="button" class="demo-btn" data-demo="non_peak_idle">Non-Peak - Idle Night</button>
+                  <button type="button" class="demo-btn" data-demo="non_peak_ssh">Non-Peak - Admin SSH</button>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="field"><label>Flow Duration</label><input type="number" id="Flow_Duration" step="any"/></div>
+                <div class="field"><label>Total Fwd Packets</label><input type="number" id="Total_Fwd_Packets" step="any"/></div>
+                <div class="field"><label>Total Backward Packets</label><input type="number" id="Total_Backward_Packets" step="any"/></div>
+                <div class="field"><label>Total Length Fwd Packets</label><input type="number" id="Total_Length_Fwd_Packets" step="any"/></div>
+                <div class="field"><label>Total Length Bwd Packets</label><input type="number" id="Total_Length_Bwd_Packets" step="any"/></div>
+                <div class="field"><label>Flow Bytes/s</label><input type="number" id="Flow_Bytes_per_s" step="any"/></div>
+                <div class="field"><label>Flow Packets/s</label><input type="number" id="Flow_Packets_per_s" step="any"/></div>
+                <div class="field"><label>Flow IAT Mean</label><input type="number" id="Flow_IAT_Mean" step="any"/></div>
+                <div class="field"><label>Flow IAT Std</label><input type="number" id="Flow_IAT_Std" step="any"/></div>
+                <div class="field"><label>Fwd Packet Length Mean</label><input type="number" id="Fwd_Packet_Length_Mean" step="any"/></div>
+                <div class="field"><label>Bwd Packet Length Mean</label><input type="number" id="Bwd_Packet_Length_Mean" step="any"/></div>
+                <div class="field"><label>Fwd IAT Total</label><input type="number" id="Fwd_IAT_Total" step="any"/></div>
+                <div class="field"><label>Fwd IAT Mean</label><input type="number" id="Fwd_IAT_Mean" step="any"/></div>
+                <div class="field"><label>Active Mean</label><input type="number" id="Active_Mean" step="any"/></div>
+                <div class="field"><label>Idle Mean</label><input type="number" id="Idle_Mean" step="any"/></div>
+                <div class="field"><label>Destination Port</label><input type="number" id="Destination_Port" step="any"/></div>
+              </div>
             </div>
-
-            <div class="field">
-              <label>Total Bwd Packets</label>
-              <div class="field-hint">Packets returned from server</div>
-              <input type="number" id="Total_Backward_Packets" placeholder="e.g. 10" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Fwd Payload (bytes)</label>
-              <div class="field-hint">Total data uploaded by user</div>
-              <input type="number" id="Total_Length_Fwd_Packets" placeholder="e.g. 5000" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Bwd Payload (bytes)</label>
-              <div class="field-hint">Total data downloaded by user</div>
-              <input type="number" id="Total_Length_Bwd_Packets" placeholder="e.g. 3000" step="any" required/>
-            </div>
-
-            <div class="form-section-label">⚡ Throughput Rates</div>
-
-            <div class="field">
-              <label>Flow Bytes/s</label>
-              <div class="field-hint">Total bandwidth throughput rate</div>
-              <input type="number" id="Flow_Bytes_per_s" placeholder="e.g. 80000" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Flow Packets/s</label>
-              <div class="field-hint">Packet rate — congestion indicator</div>
-              <input type="number" id="Flow_Packets_per_s" placeholder="e.g. 250" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Fwd Packet Length Mean</label>
-              <div class="field-hint">Avg size of uploaded packets</div>
-              <input type="number" id="Fwd_Packet_Length_Mean" placeholder="e.g. 333" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Bwd Packet Length Mean</label>
-              <div class="field-hint">Avg size of downloaded packets</div>
-              <input type="number" id="Bwd_Packet_Length_Mean" placeholder="e.g. 300" step="any" required/>
-            </div>
-
-            <div class="form-section-label">⏱️ Timing Patterns</div>
-
-            <div class="field">
-              <label>Flow IAT Mean <span class="field-hint">(μs)</span></label>
-              <div class="field-hint">Avg gap between packets (burstiness)</div>
-              <input type="number" id="Flow_IAT_Mean" placeholder="e.g. 5000" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Flow IAT Std</label>
-              <div class="field-hint">Variation in inter-arrival gaps</div>
-              <input type="number" id="Flow_IAT_Std" placeholder="e.g. 2000" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Fwd IAT Total</label>
-              <div class="field-hint">Total upstream inter-arrival time</div>
-              <input type="number" id="Fwd_IAT_Total" placeholder="e.g. 50000" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Fwd IAT Mean</label>
-              <div class="field-hint">Average upstream gap</div>
-              <input type="number" id="Fwd_IAT_Mean" placeholder="e.g. 3500" step="any" required/>
-            </div>
-
-            <div class="form-section-label">🔌 Session & Routing</div>
-
-            <div class="field">
-              <label>Active Mean</label>
-              <div class="field-hint">Mean active session duration</div>
-              <input type="number" id="Active_Mean" placeholder="e.g. 0" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Idle Mean</label>
-              <div class="field-hint">Mean idle gap between bursts</div>
-              <input type="number" id="Idle_Mean" placeholder="e.g. 0" step="any" required/>
-            </div>
-
-            <div class="field">
-              <label>Destination Port</label>
-              <div class="field-hint">80=HTTP · 443=HTTPS · 22=SSH · 53=DNS</div>
-              <input type="number" id="Destination_Port" placeholder="e.g. 443" step="any" required/>
-            </div>
-
           </div>
 
           <button type="submit" class="btn-predict" id="predictBtn">
             <div class="spinner" id="spinner"></div>
-            <span id="btnText">🔍 Analyse & Predict</span>
+            <span id="btnText">Analyse & Predict</span>
           </button>
         </form>
 
@@ -961,7 +1093,7 @@
     <div class="result-card" id="resultCard">
       <div class="result-placeholder" id="resultPlaceholder">
         <div class="placeholder-icon">📊</div>
-        <p>Enter network flow values on the left and click <strong>Analyse & Predict</strong> to see the classification result.</p>
+        <p>Complete the guided steps on the left, then click <strong>Analyse & Predict</strong> to see the result.</p>
       </div>
       <div class="result-content" id="resultContent">
 
@@ -1033,16 +1165,38 @@
 
 let API_URL = 'http://127.0.0.1:8000';
 
-function saveApiUrl() {
-  API_URL = document.getElementById('apiUrlInput').value.replace(/\/$/, '');
-  document.getElementById('statusSub').textContent = API_URL;
-  showToast('🔗 API URL updated. Checking connection…');
-  checkApiStatus();
-  loadModelInfo();
-}
+const FIELD_IDS = [
+  'Flow_Duration', 'Total_Fwd_Packets', 'Total_Backward_Packets',
+  'Total_Length_Fwd_Packets', 'Total_Length_Bwd_Packets', 'Flow_Bytes_per_s',
+  'Flow_Packets_per_s', 'Flow_IAT_Mean', 'Flow_IAT_Std', 'Fwd_Packet_Length_Mean',
+  'Bwd_Packet_Length_Mean', 'Fwd_IAT_Total', 'Fwd_IAT_Mean', 'Active_Mean',
+  'Idle_Mean', 'Destination_Port'
+];
 
+const GUIDED_PROFILES = {
+  streaming: {
+    low:    { Flow_Duration: 250000, Total_Fwd_Packets: 6,  Total_Backward_Packets: 32, Total_Length_Fwd_Packets: 420,   Total_Length_Bwd_Packets: 26000,  Flow_Bytes_per_s: 18000,  Flow_Packets_per_s: 35,  Flow_IAT_Mean: 18000,  Flow_IAT_Std: 6500,  Fwd_Packet_Length_Mean: 70,  Bwd_Packet_Length_Mean: 810,  Fwd_IAT_Total: 90000,  Fwd_IAT_Mean: 15000, Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443 },
+    medium: { Flow_Duration: 980000, Total_Fwd_Packets: 8,  Total_Backward_Packets: 120, Total_Length_Fwd_Packets: 600,   Total_Length_Bwd_Packets: 180000, Flow_Bytes_per_s: 185000, Flow_Packets_per_s: 130, Flow_IAT_Mean: 7600,   Flow_IAT_Std: 900,   Fwd_Packet_Length_Mean: 75,  Bwd_Packet_Length_Mean: 1500, Fwd_IAT_Total: 55000,  Fwd_IAT_Mean: 7800,  Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443 },
+    high:   { Flow_Duration: 1300000,Total_Fwd_Packets: 14, Total_Backward_Packets: 200, Total_Length_Fwd_Packets: 1400,  Total_Length_Bwd_Packets: 320000, Flow_Bytes_per_s: 265000, Flow_Packets_per_s: 175, Flow_IAT_Mean: 5200,   Flow_IAT_Std: 1100,  Fwd_Packet_Length_Mean: 100, Bwd_Packet_Length_Mean: 1600, Fwd_IAT_Total: 50000,  Fwd_IAT_Mean: 6000,  Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443 }
+  },
+  browsing: {
+    low:    { Flow_Duration: 3500,   Total_Fwd_Packets: 3,  Total_Backward_Packets: 2,   Total_Length_Fwd_Packets: 280,   Total_Length_Bwd_Packets: 350,    Flow_Bytes_per_s: 1200,   Flow_Packets_per_s: 4,   Flow_IAT_Mean: 120000, Flow_IAT_Std: 64000, Fwd_Packet_Length_Mean: 93,  Bwd_Packet_Length_Mean: 175,  Fwd_IAT_Total: 240000, Fwd_IAT_Mean: 120000, Active_Mean: 0, Idle_Mean: 0, Destination_Port: 80 },
+    medium: { Flow_Duration: 120000, Total_Fwd_Packets: 22, Total_Backward_Packets: 18,  Total_Length_Fwd_Packets: 8800,  Total_Length_Bwd_Packets: 52000,  Flow_Bytes_per_s: 502000, Flow_Packets_per_s: 335, Flow_IAT_Mean: 3400,   Flow_IAT_Std: 1200,  Fwd_Packet_Length_Mean: 400, Bwd_Packet_Length_Mean: 2888, Fwd_IAT_Total: 63000,  Fwd_IAT_Mean: 3000,  Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443 },
+    high:   { Flow_Duration: 180000, Total_Fwd_Packets: 30, Total_Backward_Packets: 29,  Total_Length_Fwd_Packets: 15000, Total_Length_Bwd_Packets: 90000,  Flow_Bytes_per_s: 620000, Flow_Packets_per_s: 420, Flow_IAT_Mean: 2600,   Flow_IAT_Std: 980,   Fwd_Packet_Length_Mean: 500, Bwd_Packet_Length_Mean: 3100, Fwd_IAT_Total: 58000,  Fwd_IAT_Mean: 2100,  Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443 }
+  },
+  video_call: {
+    low:    { Flow_Duration: 240000, Total_Fwd_Packets: 20, Total_Backward_Packets: 22,  Total_Length_Fwd_Packets: 6000,  Total_Length_Bwd_Packets: 6400,   Flow_Bytes_per_s: 52000,  Flow_Packets_per_s: 95,  Flow_IAT_Mean: 9800,   Flow_IAT_Std: 4200,  Fwd_Packet_Length_Mean: 300, Bwd_Packet_Length_Mean: 290,  Fwd_IAT_Total: 110000, Fwd_IAT_Mean: 5400,  Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443 },
+    medium: { Flow_Duration: 400000, Total_Fwd_Packets: 40, Total_Backward_Packets: 41,  Total_Length_Fwd_Packets: 18000, Total_Length_Bwd_Packets: 19500,  Flow_Bytes_per_s: 120000, Flow_Packets_per_s: 165, Flow_IAT_Mean: 6200,   Flow_IAT_Std: 2300,  Fwd_Packet_Length_Mean: 450, Bwd_Packet_Length_Mean: 475,  Fwd_IAT_Total: 93000,  Fwd_IAT_Mean: 3200,  Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443 },
+    high:   { Flow_Duration: 520000, Total_Fwd_Packets: 56, Total_Backward_Packets: 58,  Total_Length_Fwd_Packets: 29000, Total_Length_Bwd_Packets: 32000,  Flow_Bytes_per_s: 220000, Flow_Packets_per_s: 250, Flow_IAT_Mean: 4700,   Flow_IAT_Std: 1900,  Fwd_Packet_Length_Mean: 510, Bwd_Packet_Length_Mean: 550,  Fwd_IAT_Total: 86000,  Fwd_IAT_Mean: 2600,  Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443 }
+  },
+  admin_work: {
+    low:    { Flow_Duration: 450000, Total_Fwd_Packets: 5,  Total_Backward_Packets: 4,   Total_Length_Fwd_Packets: 380,   Total_Length_Bwd_Packets: 290,    Flow_Bytes_per_s: 1500,   Flow_Packets_per_s: 20,  Flow_IAT_Mean: 88000,  Flow_IAT_Std: 42000, Fwd_Packet_Length_Mean: 76,  Bwd_Packet_Length_Mean: 72,   Fwd_IAT_Total: 350000, Fwd_IAT_Mean: 87500, Active_Mean: 0, Idle_Mean: 0, Destination_Port: 22 },
+    medium: { Flow_Duration: 300000, Total_Fwd_Packets: 12, Total_Backward_Packets: 11,  Total_Length_Fwd_Packets: 1500,  Total_Length_Bwd_Packets: 1300,   Flow_Bytes_per_s: 9000,   Flow_Packets_per_s: 55,  Flow_IAT_Mean: 28000,  Flow_IAT_Std: 12000, Fwd_Packet_Length_Mean: 125, Bwd_Packet_Length_Mean: 118,  Fwd_IAT_Total: 210000, Fwd_IAT_Mean: 19000, Active_Mean: 0, Idle_Mean: 0, Destination_Port: 22 },
+    high:   { Flow_Duration: 220000, Total_Fwd_Packets: 24, Total_Backward_Packets: 19,  Total_Length_Fwd_Packets: 3200,  Total_Length_Bwd_Packets: 2500,   Flow_Bytes_per_s: 21000,  Flow_Packets_per_s: 110, Flow_IAT_Mean: 12000,  Flow_IAT_Std: 5200,  Fwd_Packet_Length_Mean: 133, Bwd_Packet_Length_Mean: 132,  Fwd_IAT_Total: 170000, Fwd_IAT_Mean: 7800,  Active_Mean: 0, Idle_Mean: 0, Destination_Port: 22 }
+  }
+};
 
-const PRESETS = {
+const ADVANCED_DEMOS = {
   peak_web: {
     Flow_Duration: 120000, Total_Fwd_Packets: 22, Total_Backward_Packets: 18,
     Total_Length_Fwd_Packets: 8800, Total_Length_Bwd_Packets: 52000,
@@ -1061,7 +1215,7 @@ const PRESETS = {
     Fwd_IAT_Total: 55000, Fwd_IAT_Mean: 7800,
     Active_Mean: 0, Idle_Mean: 0, Destination_Port: 443
   },
-  non_peak: {
+  non_peak_idle: {
     Flow_Duration: 2000, Total_Fwd_Packets: 2, Total_Backward_Packets: 1,
     Total_Length_Fwd_Packets: 120, Total_Length_Bwd_Packets: 60,
     Flow_Bytes_per_s: 90, Flow_Packets_per_s: 1.5,
@@ -1081,44 +1235,128 @@ const PRESETS = {
   }
 };
 
-function loadPreset(key) {
-  const p = PRESETS[key];
-  Object.entries(p).forEach(([k, v]) => {
-    const el = document.getElementById(k);
-    if (el) el.value = v;
-  });
-  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  showToast(`✅ Preset loaded — ${event.target.textContent}`);
+let selectedActivity = 'streaming';
+let selectedBusy = 'medium';
+
+function saveApiUrl() {
+  API_URL = document.getElementById('apiUrlInput').value.replace(/\/$/, '');
+  document.getElementById('statusSub').textContent = API_URL;
+  showToast('API URL updated. Checking connection...');
+  checkApiStatus();
+  loadModelInfo();
 }
 
+function getPayloadFromInputs() {
+  const payload = {};
+  FIELD_IDS.forEach((id) => {
+    const val = Number(document.getElementById(id).value);
+    payload[id] = Number.isFinite(val) ? val : 0;
+  });
+  return payload;
+}
+
+function setInputValues(values) {
+  FIELD_IDS.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && values[id] !== undefined) {
+      el.value = values[id];
+    }
+  });
+}
+
+function updateGuidedSummary() {
+  const summary = document.getElementById('guidedSummary');
+  if (!summary) return;
+  const activityName = {
+    streaming: 'Streaming',
+    browsing: 'Browsing',
+    video_call: 'Video Call',
+    admin_work: 'Admin Work'
+  }[selectedActivity] || selectedActivity;
+  const busyName = {
+    low: 'Low',
+    medium: 'Medium',
+    high: 'High'
+  }[selectedBusy] || selectedBusy;
+  summary.innerHTML = `<strong>Selected:</strong> ${activityName} + ${busyName} load. You can continue directly, or open Step 3 to fine-tune technical values.`;
+}
+
+function applyGuidedProfile() {
+  const profile = GUIDED_PROFILES[selectedActivity]?.[selectedBusy];
+  if (!profile) return;
+  setInputValues(profile);
+  updateGuidedSummary();
+}
+
+function setChoiceActive(groupClass, dataAttr, value) {
+  document.querySelectorAll(`.${groupClass}`).forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset[dataAttr] === value);
+  });
+}
+
+function initGuidedForm() {
+  document.querySelectorAll('.activity-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      selectedActivity = btn.dataset.activity;
+      setChoiceActive('activity-btn', 'activity', selectedActivity);
+      applyGuidedProfile();
+    });
+  });
+
+  document.querySelectorAll('.busy-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      selectedBusy = btn.dataset.busy;
+      setChoiceActive('busy-btn', 'busy', selectedBusy);
+      applyGuidedProfile();
+    });
+  });
+
+  const advancedToggle = document.getElementById('advancedToggle');
+  const advancedPanel = document.getElementById('advancedPanel');
+  if (advancedToggle && advancedPanel) {
+    advancedToggle.addEventListener('change', () => {
+      advancedPanel.classList.toggle('open', advancedToggle.checked);
+    });
+  }
+
+  document.querySelectorAll('.demo-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const demoKey = btn.dataset.demo;
+      const demoData = ADVANCED_DEMOS[demoKey];
+      if (!demoData) return;
+      setInputValues(demoData);
+      showToast(`Demo loaded: ${btn.textContent}`);
+    });
+  });
+
+  applyGuidedProfile();
+}
 
 async function checkApiStatus() {
-  const dot   = document.getElementById('statusDot');
+  const dot = document.getElementById('statusDot');
   const title = document.getElementById('statusTitle');
-  const sub   = document.getElementById('statusSub');
-  dot.className   = 'status-dot checking';
-  title.textContent = 'Checking connection…';
-  sub.textContent   = API_URL;
+  const sub = document.getElementById('statusSub');
+  dot.className = 'status-dot checking';
+  title.textContent = 'Checking connection...';
+  sub.textContent = API_URL;
 
   try {
     const res = await fetch(`${API_URL}/`, { signal: AbortSignal.timeout(5000) });
     const data = await res.json();
-    dot.className     = 'status-dot online';
-    title.textContent = '✅ API Online';
-    sub.textContent   = `${API_URL} · ${data.model || 'Model ready'}`;
+    dot.className = 'status-dot online';
+    title.textContent = 'API Online';
+    sub.textContent = `${API_URL} - ${data.model || 'Model ready'}`;
   } catch {
-    dot.className     = 'status-dot offline';
-    title.textContent = '❌ API Offline';
-    sub.textContent   = `Cannot reach ${API_URL} — run: uvicorn api.main:app --reload`;
+    dot.className = 'status-dot offline';
+    title.textContent = 'API Offline';
+    sub.textContent = `Cannot reach ${API_URL} - run: uvicorn api.main:app --reload`;
   }
 }
-
 
 async function loadModelInfo() {
   const body = document.getElementById('modelBody');
   try {
-    const res  = await fetch(`${API_URL}/model-info`, { signal: AbortSignal.timeout(5000) });
+    const res = await fetch(`${API_URL}/model-info`, { signal: AbortSignal.timeout(5000) });
     const data = await res.json();
 
     body.innerHTML = `
@@ -1143,49 +1381,31 @@ async function loadModelInfo() {
       <div class="model-name-row">
         <span style="font-size:11px;color:var(--text-soft);font-weight:600;text-transform:uppercase;letter-spacing:0.6px;">Best Model</span>
         <span class="model-name-badge">${data.model_name}</span>
-        <span style="font-size:11px;color:var(--text-soft);margin-left:auto;">${data.sample_size?.toLocaleString() ?? '—'} samples</span>
+        <span style="font-size:11px;color:var(--text-soft);margin-left:auto;">${data.sample_size?.toLocaleString() ?? '-'} samples</span>
       </div>`;
   } catch {
     body.innerHTML = `<div class="model-loading" style="color:#C0392B">
-      ⚠️ Could not load model info.<br>
+      Could not load model info.<br>
       <small>Ensure API is running and notebook has been executed.</small>
     </div>`;
   }
 }
 
-
 document.getElementById('predictForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const btn     = document.getElementById('predictBtn');
+  const btn = document.getElementById('predictBtn');
   const spinner = document.getElementById('spinner');
   const btnText = document.getElementById('btnText');
 
-  btn.disabled        = true;
+  btn.disabled = true;
   spinner.style.display = 'block';
-  btnText.textContent = 'Analysing…';
+  btnText.textContent = 'Analysing...';
 
-  const payload = {
-    Flow_Duration:              +document.getElementById('Flow_Duration').value,
-    Total_Fwd_Packets:          +document.getElementById('Total_Fwd_Packets').value,
-    Total_Backward_Packets:     +document.getElementById('Total_Backward_Packets').value,
-    Total_Length_Fwd_Packets:   +document.getElementById('Total_Length_Fwd_Packets').value,
-    Total_Length_Bwd_Packets:   +document.getElementById('Total_Length_Bwd_Packets').value,
-    Flow_Bytes_per_s:            +document.getElementById('Flow_Bytes_per_s').value,
-    Flow_Packets_per_s:          +document.getElementById('Flow_Packets_per_s').value,
-    Fwd_Packet_Length_Mean:      +document.getElementById('Fwd_Packet_Length_Mean').value,
-    Bwd_Packet_Length_Mean:      +document.getElementById('Bwd_Packet_Length_Mean').value,
-    Flow_IAT_Mean:               +document.getElementById('Flow_IAT_Mean').value,
-    Flow_IAT_Std:                +document.getElementById('Flow_IAT_Std').value,
-    Fwd_IAT_Total:               +document.getElementById('Fwd_IAT_Total').value,
-    Fwd_IAT_Mean:                +document.getElementById('Fwd_IAT_Mean').value,
-    Active_Mean:                 +document.getElementById('Active_Mean').value,
-    Idle_Mean:                   +document.getElementById('Idle_Mean').value,
-    Destination_Port:            +document.getElementById('Destination_Port').value,
-  };
+  const payload = getPayloadFromInputs();
 
   try {
-    const res  = await fetch(`${API_URL}/predict`, {
+    const res = await fetch(`${API_URL}/predict`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -1201,15 +1421,14 @@ document.getElementById('predictForm').addEventListener('submit', async (e) => {
     showResult(data, payload);
 
   } catch (err) {
-    showToast(`❌ ${err.message}`);
+    showToast(`Error: ${err.message}`);
     console.error(err);
   } finally {
-    btn.disabled        = false;
+    btn.disabled = false;
     spinner.style.display = 'none';
-    btnText.textContent = '🔍 Analyse & Predict';
+    btnText.textContent = 'Analyse & Predict';
   }
 });
-
 
 function showResult(data, payload) {
   const isPeak = data.prediction === 1;
@@ -1218,59 +1437,49 @@ function showResult(data, payload) {
   const rc = document.getElementById('resultContent');
   rc.style.display = 'block';
 
-  // Banner
   const banner = document.getElementById('resultBanner');
   banner.className = `result-banner ${isPeak ? 'peak' : 'non-peak'}`;
 
-  document.getElementById('resultIcon').textContent  = isPeak ? '🔴' : '🟢';
+  document.getElementById('resultIcon').textContent = isPeak ? 'Peak' : 'Normal';
   document.getElementById('resultLabel').textContent = isPeak ? 'Peak Hour' : 'Non-Peak Hour';
   document.getElementById('resultTagline').textContent = isPeak
     ? 'High network demand period detected'
-    : 'Low-demand period — normal baseline traffic';
+    : 'Low-demand period - normal baseline traffic';
 
-  // Confidence bar
   const conf = data.confidence;
   document.getElementById('confText').textContent = `${conf.toFixed(1)}%`;
   setTimeout(() => {
     document.getElementById('confBar').style.width = `${conf}%`;
   }, 80);
 
-  // Probabilities
   const pnp = (data.prob_non_peak * 100).toFixed(1) + '%';
-  const pp  = (data.prob_peak     * 100).toFixed(1) + '%';
+  const pp = (data.prob_peak * 100).toFixed(1) + '%';
   document.getElementById('probNonPeak').textContent = pnp;
-  document.getElementById('probPeak').textContent    = pp;
+  document.getElementById('probPeak').textContent = pp;
 
   if (isPeak) {
     document.getElementById('probPeak').className = 'prob-val highlight';
     document.getElementById('probNonPeak').className = 'prob-val';
   } else {
     document.getElementById('probNonPeak').className = 'prob-val highlight';
-    document.getElementById('probPeak').className    = 'prob-val';
+    document.getElementById('probPeak').className = 'prob-val';
   }
 
-  // Interpretation
-  const bw   = payload.Flow_Bytes_per_s;
+  const bw = payload.Flow_Bytes_per_s;
   const port = payload.Destination_Port;
   const portName = {80:'HTTP web', 443:'HTTPS web', 22:'SSH admin', 53:'DNS', 8080:'HTTP-alt'}[port] || `port ${port}`;
-  const bwStr = bw >= 1_000_000
-    ? `${(bw/1_000_000).toFixed(1)} MB/s`
-    : bw >= 1_000 ? `${(bw/1_000).toFixed(1)} KB/s` : `${bw} B/s`;
+  const bwStr = bw >= 1000000
+    ? `${(bw/1000000).toFixed(1)} MB/s`
+    : bw >= 1000 ? `${(bw/1000).toFixed(1)} KB/s` : `${bw} B/s`;
 
   let interp = '';
   if (isPeak) {
-    interp = `This flow shows throughput of <strong>${bwStr}</strong> on <strong>${portName}</strong> traffic. 
-    The model detected patterns consistent with heavy university usage — 
-    likely during class hours, lab sessions, or peak lecture streaming periods. 
-    Network provisioning and QoS policies should be active.`;
+    interp = `This flow shows throughput of <strong>${bwStr}</strong> on <strong>${portName}</strong> traffic. The model detected patterns consistent with heavy university usage. Consider enabling bandwidth controls.`;
   } else {
-    interp = `This flow shows throughput of <strong>${bwStr}</strong> on <strong>${portName}</strong> traffic. 
-    Patterns suggest low-activity hours — possibly late night, early morning, or a weekend period. 
-    Network load is minimal and no special bandwidth management is required.`;
+    interp = `This flow shows throughput of <strong>${bwStr}</strong> on <strong>${portName}</strong> traffic. Patterns suggest low-activity usage and normal network demand.`;
   }
   document.getElementById('interpText').innerHTML = interp;
 
-  // Scroll result into view on mobile
   if (window.innerWidth < 860) {
     document.getElementById('resultCard').scrollIntoView({ behavior:'smooth', block:'start' });
   }
@@ -1285,8 +1494,10 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
+initGuidedForm();
 checkApiStatus();
 loadModelInfo();
 </script>
 </body>
 </html>
+
